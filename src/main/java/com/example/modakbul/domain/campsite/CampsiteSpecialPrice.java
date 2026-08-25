@@ -6,15 +6,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
 @Entity
-@Table(
-        name = "campsite_special_price",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "uk_campsite_target_date", columnNames = {"campsite_id", "target_date"})
-        }
-)
+@Table(name = "campsite_special_price")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CampsiteSpecialPrice extends BaseEntity {
@@ -25,23 +21,24 @@ public class CampsiteSpecialPrice extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campsite_id", nullable = false)
-    private Campsite campsite;
+    private Campsite campsite; // 어떤 사이트의 일별 특별 요금인지
 
     @Column(nullable = false)
-    private LocalDate targetDate; // 가격 변동 적용 일자 (예: 성수기, 공휴일 등)
+    private LocalDate targetDate; // 적용할 특정 날짜 (예: 2026-07-25)
 
     @Column(nullable = false)
-    private int overridePrice; // 변경될 특수 가격
+    private int price; // 해당 날짜의 적용 가격
 
     @Builder
-    public CampsiteSpecialPrice(Campsite campsite, LocalDate targetDate, int overridePrice) {
+    public CampsiteSpecialPrice(Campsite campsite, LocalDate targetDate, int price) {
         this.campsite = campsite;
         this.targetDate = targetDate;
-        this.overridePrice = overridePrice;
+        this.price = price;
     }
 
-    // 특수 가격 수정 메서드
-    public void updateOverridePrice(int overridePrice) {
-        this.overridePrice = overridePrice;
+    // 일별 가격 수정 메서드
+    public void updateSpecialPrice(LocalDate targetDate, int price) {
+        this.targetDate = targetDate;
+        this.price = price;
     }
 }
