@@ -1,5 +1,6 @@
 package com.example.modakbul.domain.user;
 
+import com.example.modakbul.domain.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 )
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,12 +41,6 @@ public class Member {
     @Column(nullable = false, length = 50)
     private String role; // USER, HOST, ADMIN
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt = LocalDateTime.now();
-
     @Builder
     public Member(String userId, String password, String userName, String phone, String mail, String role) {
         this.userId = userId;
@@ -61,12 +56,10 @@ public class Member {
         this.userName = userName;
         this.phone = phone;
         this.mail = mail;
-        this.updatedAt = LocalDateTime.now();
     }
 
     // 권한 승격 메서드 (USER -> HOST 등)
     public void updateRole(String role) {
         this.role = role;
-        this.updatedAt = LocalDateTime.now();
     }
 }

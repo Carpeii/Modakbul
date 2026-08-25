@@ -1,18 +1,18 @@
 package com.example.modakbul.domain.campground;
 
+import com.example.modakbul.domain.base.BaseEntity;
 import com.example.modakbul.domain.user.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "campground")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Campground {
+public class Campground extends BaseEntity { // extends BaseEntity 추가!
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +33,6 @@ public class Campground {
 
     @Column(length = 255)
     private String phone; // 캠핑장 연락처
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 등록일시
 
     @Builder
     public Campground(Member host, String campgroundName, String address, String detailAddress, String phone) {

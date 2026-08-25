@@ -1,5 +1,6 @@
 package com.example.modakbul.domain.campsite;
 
+import com.example.modakbul.domain.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 )
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CampsiteSpecialPrice {
+public class CampsiteSpecialPrice extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

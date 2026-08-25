@@ -1,5 +1,6 @@
 package com.example.modakbul.domain.payment;
 
+import com.example.modakbul.domain.base.BaseEntity;
 import com.example.modakbul.domain.booking.Booking;
 import com.example.modakbul.domain.user.Member;
 import jakarta.persistence.*;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 )
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Payment {
+public class Payment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,9 +49,6 @@ public class Payment {
     private String idempotencyKey; // 중복 결제 방지용 멱등성 키
 
     private LocalDateTime approveDate; // 결제 승인 일시
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Builder
     public Payment(Booking booking, Member member, int amount, String paymentMethod, String paymentStatus, String pgPaymentKey, String idempotencyKey) {

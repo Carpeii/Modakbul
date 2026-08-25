@@ -1,5 +1,6 @@
 package com.example.modakbul.domain.campsite;
 
+import com.example.modakbul.domain.base.BaseEntity;
 import com.example.modakbul.domain.campground.Campground;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "campsite")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Campsite {
+public class Campsite extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

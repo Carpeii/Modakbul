@@ -1,5 +1,6 @@
 package com.example.modakbul.domain.review;
 
+import com.example.modakbul.domain.base.BaseEntity;
 import com.example.modakbul.domain.booking.Booking;
 import com.example.modakbul.domain.user.Member;
 import jakarta.persistence.*;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 )
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Review {
+public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +37,6 @@ public class Review {
     private String message; // 리뷰 내용
 
     private Integer rating; // 평점 (예: 1 ~ 5점)
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 작성일시
 
     @Builder
     public Review(Booking booking, Member member, String message, Integer rating) {
